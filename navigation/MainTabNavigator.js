@@ -15,7 +15,7 @@ import AddProduct from "../screens/AddProduct";
 import ShoppingList from "../screens/ShoppingList";
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  //Home: HomeScreen,
   ShoppingList: { screen: ShoppingList },
   AddProduct: { screen: AddProduct }
 });

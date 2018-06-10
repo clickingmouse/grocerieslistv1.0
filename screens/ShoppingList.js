@@ -17,6 +17,16 @@ export default class ShoppingList extends React.Component {
   static navigationOptions = {
     title: "My Groceries List"
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [
+        { id: 1, name: "bread" },
+        { id: 2, name: "eggs" },
+        { id: 3, name: "butter" }
+      ]
+    };
+  }
 
   /***Render */
   render() {
@@ -24,6 +34,24 @@ export default class ShoppingList extends React.Component {
       <Container>
         <Content>
           <List>
+            {
+              this.state.products.map(p=>{
+                return(
+                  <ListItem key={p.id} > 
+                  <Body>
+                    <Text style={{color:p.gotten ? '#bbb' : '#000'}}>
+                    {p.name}
+
+                    </Text>
+
+                  </Body>
+                  <Right>
+                    <CheckBox checked={p.gotten}/>
+                  </Right>
+                  </ListItem>
+                )
+              })
+            }
             <ListItem>
               <Body>
                 <Text>'Name of product</Text>
