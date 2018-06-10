@@ -28,30 +28,67 @@ export default class ShoppingList extends React.Component {
     };
   }
 
+  //  event handlers
+
+  _handleProductPress(product) {
+    this.state.products.forEach(p => {
+      if (product.id === p.id) {
+        p.gotten = !p.gotten;
+      }
+      return p;
+    });
+    this.setState({ products: this.state.products });
+  }
+
+  _handleAddProductPress() {
+    this.props.navigation.navigate("AddProduct", {
+      addProduct: product => {
+        this.setState({
+          products: this.state.products.concat(product)
+        });
+      },
+      deleteProduct: product => {
+        this.setState({
+          products: this.state.products.filter(p => p.id !== product.id)
+        });
+      },
+      productsInlist: this.state.products
+    });
+  }
+
+  _handleClearPress() {
+    Alert.alert("Clear all items?", null, [
+      { text: "Cancel" },
+      { text: "Ok", onPress: () => this.setState({ products: [] }) }
+    ]);
+  }
+
   /***Render */
   render() {
     return (
       <Container>
         <Content>
           <List>
-            {
-              this.state.products.map(p=>{
-                return(
-                  <ListItem key={p.id} > 
+            {this.state.products.map(p => {
+              return (
+                <ListItem
+                  key={p.id}
+                  onPress={this._handleProductPress.bind(this, p)}
+                >
                   <Body>
-                    <Text style={{color:p.gotten ? '#bbb' : '#000'}}>
-                    {p.name}
-
+                    <Text style={{ color: p.gotten ? "#bbb" : "#000" }}>
+                      {p.name}
                     </Text>
-
                   </Body>
                   <Right>
-                    <CheckBox checked={p.gotten}/>
+                    <CheckBox
+                      checked={p.gotten}
+                      onPress={this._handleProductPress.bind(this, p)}
+                    />
                   </Right>
-                  </ListItem>
-                )
-              })
-            }
+                </ListItem>
+              );
+            })}
             <ListItem>
               <Body>
                 <Text>'Name of product</Text>
@@ -62,10 +99,18 @@ export default class ShoppingList extends React.Component {
             </ListItem>
           </List>
         </Content>
-        <Fab style={{ backgroundColor: "#5067ff" }} position="bottomRight">
+        <Fab
+          style={{ backgroundColor: "#5067ff" }}
+          position="bottomRight"
+          onPress={this._handleAddProductPress.bind(this)}
+        >
           <Icon name="add" />
         </Fab>
-        <Fab style={{ backgroundColor: "red" }} position="bottomLeft">
+        <Fab
+          style={{ backgroundColor: "red" }}
+          position="bottomLeft"
+          onPress={this._handleClearPress.bind(this)}
+        >
           <Icon ios="ios-remove" android="md-remove" />
         </Fab>
       </Container>
