@@ -2,6 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
+  //StackNavigator,
   createStackNavigator,
   createBottomTabNavigator
 } from "react-navigation";
@@ -13,11 +14,16 @@ import SettingsScreen from "../screens/SettingsScreen";
 
 import AddProduct from "../screens/AddProduct";
 import ShoppingList from "../screens/ShoppingList";
-
-const HomeStack = createStackNavigator({
-  //Home: HomeScreen,
+/*
+const Navigator = StackNavigator({
   ShoppingList: { screen: ShoppingList },
   AddProduct: { screen: AddProduct }
+});
+*/
+const HomeStack = createStackNavigator({
+  //Home: HomeScreen,
+  ShoppingList: ShoppingList,
+  AddProduct: AddProduct
 });
 
 HomeStack.navigationOptions = {

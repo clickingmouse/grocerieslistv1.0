@@ -89,14 +89,6 @@ export default class ShoppingList extends React.Component {
                 </ListItem>
               );
             })}
-            <ListItem>
-              <Body>
-                <Text>'Name of product</Text>
-              </Body>
-              <Right>
-                <CheckBox checked={false} />
-              </Right>
-            </ListItem>
           </List>
         </Content>
         <Fab
